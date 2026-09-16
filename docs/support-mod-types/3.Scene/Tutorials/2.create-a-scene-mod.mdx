@@ -54,10 +54,19 @@ Here is a step by step tutorial for making a **scene** mod.
 * Save the scene.
 
 #### 7. Bake the scene
-This step is not required, but it will increase performance, because it will not render objects that are currently not visible for the player.
+* This optional step can improve performance by preventing rendering of static objects that are fully hidden from the player's view.
 
-* Mark all objects that do not move `Occluder Static`.
-![](create-a-scene-mod/occluderStatic.png)
+  Mark static renderers for occlusion culling:
+
+  - Large, solid objects such as walls, buildings, and terrain should use `Occluder Static`.
+  - Static objects that can be hidden, such as decorations, small props, and transparent objects, should use `Occludee Static`.
+  - Objects that both hide other geometry and can be hidden should use both flags.
+
+  **Important:** Most static renderers should be marked `Occludee Static`; otherwise, occlusion culling will not remove them when they are hidden. Reserve `Occluder Static` for large, solid geometry that can form effective occlusion.
+
+  Dynamic objects, such as characters and movable props, are not included in the baked occlusion data. Their Renderer `Dynamic Occlusion` setting allows them to be culled at runtime by baked static occluders.
+
+  ![](create-a-scene-mod/occluderStatic.png)
 
 * Open the `Occlusion` window by going to `Window > Rendering > Occlusion Culling`.
 ![](create-a-scene-mod/occlusionCullingWindow.png)
@@ -65,7 +74,16 @@ This step is not required, but it will increase performance, because it will not
 * In the `Occlusion` window, click the `Bake` button.
 ![](create-a-scene-mod/occlusionCullingBake.png)
 
-* Save the scene again.
+* ##### Verify occlusion culling
+
+  1. Select a Camera in the scene and make sure **Occlusion Culling** is enabled in its Inspector.
+  2. Open `Window > Rendering > Occlusion Culling` and select the **Visualization** tab.
+  3. Add a temporary Camera to the scene, move the Camera in the Scene view and confirm that objects hidden behind occluders disappear from view.
+  4. In the Scene view Occlusion Culling pop-up menu, enable **Camera Volumes** (yellow lines) and **Visibility Lines** (green lines) to help inspect the baked visibility data.
+
+  **Note:** Delete the temporary Camera before saving or building the mod, unless it is intentionally part of the scene.
+
+  Save the scene again.
 
 #### Extra - StabableObj
 Want some items to be stabbable (and also climbable)? You can do this as followed:
