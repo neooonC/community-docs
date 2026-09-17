@@ -9,6 +9,10 @@ import ModTutorialFragmentStepTemplateWizard from '/docs/_fragments/_fragment-st
 
 This tutorial walks you through creating a **Sandbox Scene** mod, from generating the Scene template to preparing lighting and building the mod.
 
+![](create-a-sandbox-scene/ingame.png)
+
+
+
 ## Phase 1: Define your mod
 
 <ModTutorialFragmentStepOpenUnity />
@@ -52,15 +56,15 @@ Save the scene.
 
 #### 10. Add SandBoxControl
 
-Drag `Toolkit/Prefabs/SceneObj/SandBoxControl.prefab` into the scene.
+Drag `Toolkit/Prefabs/SceneObj/SandBoxControllua.prefab` into the scene.
 
-![](create-a-sandbox-scene/sandboxcontrol.png)
+![](create-a-sandbox-scene/sandboxcontrolLua.png)
 
-Select `SandBoxControl`. In its `SandBoxControlSetup` component, double-click an assigned reference to select the corresponding GameObject.
+Select `SandBoxControlLua`. In its `LuaBehaviour` component, double-click an assigned reference to select the corresponding GameObject.
 
-Only the GameObjects assigned to the `Transform` fields in `SandBoxControlSetup` can have their positions and rotations changed through this setup. Moving or rotating other scene nodes will not update those configured locations.
+Only the GameObjects assigned to the `Transform` fields in `LuaBehaviour` can have their positions and rotations changed through this setup. Moving or rotating other scene nodes will not update those configured locations.
 
-![](create-a-sandbox-scene/placesandboxitem.png)
+![](create-a-sandbox-scene/placesandboxluaitem.png)
 
 #### 11. Add lights
 
@@ -100,6 +104,8 @@ After baking finishes, Unity creates or updates `LightingData.asset` for the sce
 
 ![](create-a-sandbox-scene/generatelight.png)
 
+![](create-a-sandbox-scene/lightmapcamplate.png)
+
 ##### Verify lightmaps
 
 1. In the Scene view control bar, open the **Draw Mode** dropdown. Under **Baked Global Illumination**, select **Baked Lightmap**. Scene geometry displays its baked lightmap as a checkered overlay, which confirms that the lightmap is applied correctly.
@@ -113,6 +119,8 @@ After baking finishes, Unity creates or updates `LightingData.asset` for the sce
 3. If light leaking appears, increase **Lightmap Resolution** in `Window > Rendering > Lighting`.
 
 **Note:** Delete the temporary Camera before saving or building the mod, unless it is intentionally part of the scene.
+
+
 
 #### 13. Bake occlusion culling
 
